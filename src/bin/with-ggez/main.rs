@@ -2,6 +2,8 @@
 use ggez::event;
 use ggez::graphics;
 use ggez::{ Context, ContextBuilder, GameResult };
+// Some extra imports
+use ggez::conf;
 
 struct GameState {
     bg_color: graphics::Color,
@@ -31,8 +33,14 @@ impl event::EventHandler for GameState {
 }
 
 fn main() -> GameResult {
-    // Get GGez Contevt and Window Event Loop;
+    // We can configure our window dimensions and others, using ggez::config;
+    let window_config = conf::Conf::new();
+    let win_mode = conf::WindowMode::default();
+    let window_config = window_config.window_mode(win_mode.dimensions(1280.0, 720.0));
+
+    // Get GGez Contert and Window Event Loop;
     let (ctx, event_loop) = &mut ContextBuilder::new("Handmade Hero", "Subroto")
+        .conf(window_config)
         .build().unwrap();
 
     // Instantiate Game State:
