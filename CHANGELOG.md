@@ -14,3 +14,8 @@ go to the [XXX] Day of Handmade Hero Tutorial version in Rust.
 
 ## 005 - 025 Tuts are all based on how to structure, low level backend to create your own game engine. Will learn that later, when I will start Vulkan Programming, from scratch.
 
+## Day 028
+
+Drawing a Tile Map using Rects.
+
+* With GGez: Go to Commit - [b2d40d659c0f18857ddbd3d73a1fae19b226b9c9](https://github.com/Shub1427/handmade-hero-rs/tree/b2d40d659c0f18857ddbd3d73a1fae19b226b9c9)
