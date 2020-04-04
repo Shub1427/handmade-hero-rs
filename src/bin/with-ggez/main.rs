@@ -4,26 +4,32 @@ use ggez::graphics;
 use ggez::{ Context, ContextBuilder, GameResult };
 // Some extra imports
 use ggez::conf;
-use ggez::nalgebra::{Point2, Vector2};
 
-mod gradient;
-use gradient::Gradient;
+// Static vars
+const TILE_WIDTH: u8 = 80;
+const TILE_HEIGHT: u8 = 80;
 
 struct GameState {
     bg_color: graphics::Color,
-    gradient: graphics::Image
+    tile_map: Vec<Vec<u8>>,
 }
 
 impl GameState {
-    fn new(ctx: &mut Context) -> Self {
-        let result = graphics::Image::gradient(ctx, &[
-            graphics::Color::from_rgba(183, 28, 28, 255),
-            graphics::Color::from_rgba(194, 24, 91, 255),
-            graphics::Color::from_rgba(156, 39, 176, 255),
-        ]);
+    fn new() -> Self {
+        let tile_map = vec![
+            vec![0,0,0,0, 0,1,0,0, 0,0,0,0, 0,0,0,0],
+            vec![0,0,0,0, 1,1,1,0, 0,0,0,1, 1,1,0,0],
+            vec![0,0,1,1, 1,0,1,0, 0,0,0,1, 0,1,0,0],
+            vec![0,0,1,0, 0,0,0,0, 0,0,0,1, 0,1,0,0],
+            vec![0,0,1,1, 0,1,1,1, 1,1,0,1, 0,1,0,0],
+            vec![0,0,0,1, 0,1,0,0, 0,1,1,1, 0,1,0,0],
+            vec![0,0,0,1, 1,1,0,0, 0,0,0,0, 0,1,0,0],
+            vec![0,0,0,0, 0,0,0,1, 1,1,1,1, 1,1,0,0],
+            vec![0,0,0,0, 0,0,0,1, 0,0,0,0, 0,0,0,0],
+        ];
         GameState {
             bg_color: graphics::Color::new(0.878, 0.878, 0.878, 1.0),
-            gradient: result.unwrap() // This is a 1X3 size image.
+            tile_map
         }
     }
 }
@@ -39,16 +45,23 @@ impl event::EventHandler for GameState {
         // Clear the screen for each draw with Background Color
         graphics::clear(ctx, self.bg_color);
 
-        // To make my gradient scale the window, I need to scale it to
-        // match window, width/height.
-        graphics::draw(
-            ctx,
-            &self.gradient,
-            graphics::DrawParam::new()
-                .dest(Point2::new(0.0, 0.0))
-                .rotation(0f32)
-                .scale(Vector2::new(1280.0, 240.0)),
-        )?;
+        // This is really inefficient, though good for understanding...
+        for (row, row_ele) in self.tile_map.iter_mut().enumerate() {
+            for (col, element) in row_ele.iter().enumerate() {
+                let mut color = graphics::Color::new(1.0, 1.0, 1.0, 1.0);
+                if *element == 1 { color = graphics::Color::new(0.5, 0.5, 0.5, 1.0); }
+                let rect = graphics::Rect::new(
+                    col as f32 * TILE_WIDTH as f32,
+                    row as f32 * TILE_HEIGHT as f32,
+                    TILE_WIDTH as f32,
+                    TILE_HEIGHT as f32
+                );
+                let r1 =
+                    graphics::Mesh::new_rectangle(ctx, graphics::DrawMode::fill(), rect, color)?;
+                graphics::draw(ctx, &r1, graphics::DrawParam::default())?;
+            }
+        }
+
         graphics::present(ctx)?; // Show the Background
         Ok(())
     }
@@ -66,7 +79,7 @@ fn main() -> GameResult {
         .build().unwrap();
 
     // Instantiate Game State:
-    let mut initial_state = GameState::new(ctx);
+    let mut initial_state = GameState::new();
 
     // Run the Event Loop
     event::run(ctx, event_loop, &mut initial_state)
