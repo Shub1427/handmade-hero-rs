@@ -15,6 +15,8 @@ const FPS: u32 = 60;
 
 struct GameState {
     bg_color: graphics::Color,
+    tile_map_start_x: f32,
+    tile_map_start_y: f32,
     tile_map: Vec<Vec<u8>>,
     player: graphics::Mesh,
     player_pos: Point2<f32>,
@@ -23,15 +25,15 @@ struct GameState {
 impl GameState {
     fn new(ctx: &mut Context) -> GameResult<Self> {
         let tile_map = vec![
-            vec![0,0,0,0, 0,1,0,0, 0,0,0,0, 0,0,0,0],
-            vec![0,0,0,0, 1,1,1,0, 0,0,0,1, 1,1,0,0],
-            vec![0,0,1,1, 1,0,1,0, 0,0,0,1, 0,1,0,0],
-            vec![0,0,1,0, 0,0,0,0, 0,0,0,1, 0,1,0,0],
-            vec![0,0,1,1, 0,1,1,1, 1,1,0,1, 0,1,0,0],
-            vec![0,0,0,1, 0,1,0,0, 0,1,1,1, 0,1,0,0],
-            vec![0,0,0,1, 1,1,0,0, 0,0,0,0, 0,1,0,0],
-            vec![0,0,0,0, 0,0,0,1, 1,1,1,1, 1,1,0,0],
-            vec![0,0,0,0, 0,0,0,1, 0,0,0,0, 0,0,0,0],
+            vec![0,0,0,0, 0,1,0,0, 0,0,0,0, 0,0,0,0, 0],
+            vec![0,0,0,0, 1,1,1,0, 0,0,0,1, 1,1,0,0, 0],
+            vec![0,0,1,1, 1,0,1,0, 0,0,0,1, 0,1,0,0, 0],
+            vec![0,0,1,0, 1,1,1,1, 1,0,0,1, 1,1,1,1, 0],
+            vec![0,1,1,1, 1,1,1,1, 1,1,0,1, 1,1,1,1, 1],
+            vec![0,0,1,1, 0,1,0,0, 0,1,1,1, 1,1,1,1, 0],
+            vec![0,0,0,1, 1,1,1,1, 0,1,1,1, 0,1,0,0, 0],
+            vec![0,0,0,0, 0,0,0,1, 1,1,1,1, 1,1,0,0, 0],
+            vec![0,0,0,0, 0,0,0,1, 0,0,0,0, 0,0,0,0, 0],
         ];
         let player = graphics::Mesh::new_rectangle(
             ctx,
@@ -43,9 +45,11 @@ impl GameState {
         )?;
         Ok(GameState {
             bg_color: graphics::Color::new(0.878, 0.878, 0.878, 1.0),
+            tile_map_start_x: -40.0, // Will move half tile left, so that more tiles are visible
+            tile_map_start_y: 0.0,
             tile_map,
             player,
-            player_pos: Point2::new(0.0, 0.0)
+            player_pos: Point2::new(2.0 * TILE_WIDTH as f32, 4.0 * TILE_HEIGHT as f32)
         })
     }
 }
@@ -77,7 +81,9 @@ impl event::EventHandler for GameState {
                 );
                 let r1 =
                     graphics::Mesh::new_rectangle(ctx, graphics::DrawMode::fill(), rect, color)?;
-                graphics::draw(ctx, &r1, graphics::DrawParam::default())?;
+                graphics::draw(ctx, &r1, graphics::DrawParam::default()
+                    .dest(Point2::new(self.tile_map_start_x, self.tile_map_start_y))
+                )?;
             }
         }
 

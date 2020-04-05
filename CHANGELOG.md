@@ -19,3 +19,7 @@ go to the [XXX] Day of Handmade Hero Tutorial version in Rust.
 Drawing a Tile Map using Rects.
 
 * With GGez: Go to Commit - [b2d40d659c0f18857ddbd3d73a1fae19b226b9c9](https://github.com/Shub1427/handmade-hero-rs/tree/b2d40d659c0f18857ddbd3d73a1fae19b226b9c9)
+
+Drawing a Player and Move it using Keyboard events
+
+* With GGez: Go to Commit - [5bfb8615ac9e7726849ce152b960bbaabc4f651d](https://github.com/Shub1427/handmade-hero-rs/tree/5bfb8615ac9e7726849ce152b960bbaabc4f651d)
