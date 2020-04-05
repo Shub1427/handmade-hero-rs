@@ -1,0 +1,82 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'with-gfx'",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=with-gfx",
+          "--package=handmade-hero-rs"
+        ],
+        "filter": {
+          "name": "with-gfx",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'with-gfx'",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--bin=with-gfx",
+          "--package=handmade-hero-rs"
+        ],
+        "filter": {
+          "name": "with-gfx",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'with-ggez'",
+      "cargo": {
+        "args": [
+          "build",
+          "--bin=with-ggez",
+          "--package=handmade-hero-rs"
+        ],
+        "filter": {
+          "name": "with-ggez",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'with-ggez'",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--bin=with-ggez",
+          "--package=handmade-hero-rs"
+        ],
+        "filter": {
+          "name": "with-ggez",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
