@@ -23,3 +23,19 @@ Drawing a Tile Map using Rects.
 Drawing a Player and Move it using Keyboard events
 
 * With GGez: Go to Commit - [5bfb8615ac9e7726849ce152b960bbaabc4f651d](https://github.com/Shub1427/handmade-hero-rs/tree/5bfb8615ac9e7726849ce152b960bbaabc4f651d)
+
+## Day 029
+
+[Dropbox Paper link](https://paper.dropbox.com/doc/Day-028-029--Axe_I4lmcXaH1tilxeI7HPLLAQ-VmngXGWTCA5JgTrug0uTJ)
+
+Fixed Keyboard event handling to support level-trigger, instead of edge triggered.
+
+- Add Collision detection
+  - with GGez: Go to commit - [3e14c7a730d5296a084bade968cfd876bb379e0f](https://github.com/Shub1427/handmade-hero-rs/tree/3e14c7a730d5296a084bade968cfd876bb379e0f)
+
+## Day 030
+
+This is day coding is pure coordinate maths, nothing new to learn about graphics here.
+
+- Move to different Tile Maps in the World Map
+  - with GGez: Go to commit -
